@@ -3,6 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import ListButton from "./ListButton.vue";
 import LocButton from "./LocButton.vue";
 import SearchButton from "./SearchButton.vue";
+
+const emit = defineEmits(['centerLoc'])
 </script>
 
 <template>
@@ -14,7 +16,7 @@ import SearchButton from "./SearchButton.vue";
       <SearchButton/>
     </div>
     <div class="d-flex flex-column justify-content-end align-items-center">
-      <LocButton/>
+      <LocButton @click="$emit('centerLoc')"/>
     </div>
   </div>
 </template>
@@ -22,7 +24,7 @@ import SearchButton from "./SearchButton.vue";
 <style scoped>
 
 .button-position {
-  bottom: 25%;
+  bottom: 150px;
 }
 
 .df{
@@ -30,5 +32,5 @@ import SearchButton from "./SearchButton.vue";
 
 }
 
-.h { height: 50px;}
+.h { height: 80px;}
 </style>
