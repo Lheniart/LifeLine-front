@@ -1,7 +1,7 @@
 import axios, {AxiosError} from "axios";
 import type {DaeWithDistance, FindNearDaeDto} from "@/api/models";
 
-const backend_link = "http://localhost:8080";
+const backend_link = "http://192.168.1.11:8080";
 
 
 export async function findAllDaeNear(dto : FindNearDaeDto): Promise<DaeWithDistance[]> {

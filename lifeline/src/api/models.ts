@@ -3,15 +3,15 @@ export interface Dae {
     name: string;
     latitude: number;
     longitude: number;
-    adresse_num: string;
-    adresse_voie: string;
-    adresse_cp: string;
-    adresse_commune: string;
+    adresseNum: string;
+    adresseVoie: string;
+    adresseCp: string;
+    adresseCommune: string;
     acces: string;
-    acces_libre: boolean;
+    accesLibre: boolean;
     photo: string;
-    dispo_jour: string;
-    dispo_heure: string;
+    dispoJour: string;
+    dispoHeure: string;
     etat_fonctionnement: string;
 }
 export interface DaeWithDistance {

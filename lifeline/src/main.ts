@@ -1,15 +1,17 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from "@/store";
+import { createPinia } from 'pinia'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'leaflet/dist/leaflet.css';
+import piniaPersistedState from 'pinia-plugin-persistedstate';
 
-
+const pinia = createPinia();
+pinia.use(piniaPersistedState);
 
 createApp(App)
     .use(router)
-    .use(store)
+    .use(pinia)
     .mount('#app')
 

@@ -8,14 +8,13 @@ import type {DaeWithDistance, FindNearDaeDto} from "@/api/models";
 
 import userLocationIconUrl from '@/assets/icons/user-location-icon.png';
 import markerIconUrl from '@/assets/icons/pin.png';
-import {useStore} from "vuex";
+import useDaeStore from "@/store";
+import router from "@/router";
 
 
 const map = ref();
 let markersLayer = ref<LayerGroup>();
-
-const store = useStore();
-
+const store = useDaeStore();
 
 const center = ref<{ lat: number, lng: number }>({lat: 0, lng: 0});
 const daeList = ref<DaeWithDistance[]>([]);
@@ -69,7 +68,6 @@ window.addEventListener('resize', () => {
 let timeoutId: ReturnType<typeof setTimeout> | null = null;
 let isLoading = ref<boolean>(false);
 const startDelay = (): void => {
-  console.log("moove")
   if (timeoutId) {
     clearTimeout(timeoutId);
   }
@@ -92,7 +90,8 @@ const getDae = async () => {
   await findAllDaeNear(dto)
       .then(response => {
         daeList.value = response;
-        store.commit("setDaeList", response);
+        store.setDaeList(response)
+        store.setDaeSelected(response[0]);
         clearMarkers();
         daeList.value.forEach((dae) => {
           let latLng = new LatLng(dae.daeEntity.latitude, dae.daeEntity.longitude)
@@ -101,12 +100,13 @@ const getDae = async () => {
           }).addTo(map.value);
           markersLayer.value?.addLayer(newMarker);
           newMarker.on('click', function() {
-            console.log(dae)
+            store.setDaeSelected(dae);
+            router.push('/details')
           });
         });
       })
       .catch(error => {
-        store.commit("setDaeList", []);
+        store.setDaeList([])
         daeList.value = []
         console.log(error)
       })

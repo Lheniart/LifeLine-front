@@ -1,26 +1,26 @@
-import type {DaeWithDistance} from "@/api/models";
-import {createStore} from "vuex";
+import { defineStore } from 'pinia';
+import type { DaeWithDistance } from '@/api/models';
 
-interface State {
-    daeList: DaeWithDistance[] | null;
-}
+export const useDaeStore = defineStore('dae', {
+    state: () => ({
+        daeList: null as DaeWithDistance[] | null,
+        daeSelected: null as DaeWithDistance | null,
+    }),
+    actions: {
+        setDaeList(daeList: DaeWithDistance[]) {
+            this.$patch({ daeList });
+        },
+        setDaeSelected(dae: DaeWithDistance) {
+            console.log(dae)
+            this.$patch({ daeSelected : dae });
+            console.log(this.daeSelected)
 
-const store = createStore<State>(
-    {
-        state:{
-            daeList: null
         },
-        mutations:{
-            setDaeList(state: State, daeList: DaeWithDistance[]){
-                state.daeList = daeList;
-                console.log(state.daeList)
-            }
-        },
-        getters: {
-            daeList(state: State){
-                return state.daeList;
-            }
-        }
-    }
-)
-export default store;
+    },
+    getters: {
+        daeListCount: (state) => state.daeList?.length || 0,
+    },
+    persist: true
+});
+
+export default useDaeStore;
