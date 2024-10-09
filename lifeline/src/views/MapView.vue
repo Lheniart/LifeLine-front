@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import L, {LatLng, marker} from "leaflet";
 import {onMounted, ref} from "vue";
+import ButtonGroup from "@/components/ButtonGroup.vue";
+
 
 const map = ref();
 
@@ -33,6 +35,9 @@ onMounted( () =>{
 
 <template>
   <div id="map"></div>
+  <ButtonGroup/>
+
+
 </template>
 
 <style scoped>
@@ -44,4 +49,5 @@ onMounted( () =>{
 #map{
   z-index: 0;
 }
+
 </style>
